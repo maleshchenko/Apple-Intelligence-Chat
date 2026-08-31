@@ -8,11 +8,6 @@
 import Foundation
 import FoundationModels
 
-/// Shared mutable flag — written by the tool, read by ContentView after generation.
-final class SearchUsedFlag: @unchecked Sendable {
-    nonisolated(unsafe) var value = false
-}
-
 struct WebSearchTool: Tool {
     let name = "searchWeb"
     let description = "Search recent news and current events."
@@ -25,7 +20,7 @@ struct WebSearchTool: Tool {
     }
 
     func call(arguments: Arguments) async throws -> String {
-        searchUsedFlag.value = true
+        await searchUsedFlag.set()
         let encoded = arguments.query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         guard let url = URL(string: "https://news.google.com/rss/search?q=\(encoded)") else {
             return "Unable to perform search."

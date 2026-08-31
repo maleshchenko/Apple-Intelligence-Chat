@@ -29,15 +29,9 @@ final class ChatViewModel {
 
     // MARK: - Settings (read at send time so changes take effect immediately)
 
-    private var useStreaming: Bool {
-        get { UserDefaults.standard.object(forKey: "useStreaming") as? Bool ?? AppSettings.useStreaming }
-    }
-    private var temperature: Double {
-        get { UserDefaults.standard.object(forKey: "temperature") as? Double ?? AppSettings.temperature }
-    }
-    private var systemInstructions: String {
-        get { UserDefaults.standard.string(forKey: "systemInstructions") ?? AppSettings.systemInstructions }
-    }
+    private var useStreaming: Bool { AppSettings.useStreaming }
+    private var temperature: Double { AppSettings.temperature }
+    private var systemInstructions: String { AppSettings.systemInstructions }
 
     // MARK: - Public Interface
 
@@ -119,7 +113,7 @@ final class ChatViewModel {
 
     private func generate(prompt: String, session: LanguageModelSession) async throws {
         let options = GenerationOptions(temperature: temperature)
-        searchUsedFlag.value = false
+        await searchUsedFlag.reset()
         for attempt in 1...3 {
             do {
                 if attempt > 1 { updateLastMessage("") }
@@ -132,7 +126,7 @@ final class ChatViewModel {
                     let response = try await session.respond(to: prompt, options: options)
                     updateLastMessage(response.content)
                 }
-                if searchUsedFlag.value { messages[messages.count - 1].usedWebSearch = true }
+                if await searchUsedFlag.value { messages[messages.count - 1].usedWebSearch = true }
                 return
             } catch let e as LanguageModelSession.GenerationError {
                 if case .guardrailViolation = e {

@@ -29,6 +29,6 @@ struct ArticleFetchTool: Tool {
             return "Unable to read article content."
         }
 
-        return await HTMLStripper.excerpt(html, maxLength: 800)
+        return HTMLStripper.excerpt(html, maxLength: 800)
     }
 }

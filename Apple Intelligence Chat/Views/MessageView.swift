@@ -7,22 +7,6 @@
 
 import SwiftUI
 
-/// Represents the role of a chat participant
-enum ChatRole {
-    case user
-    case assistant
-    case system
-}
-
-/// Represents a single message in the chat conversation
-struct ChatMessage: Identifiable, Equatable {
-    let id = UUID()
-    var role: ChatRole
-    var text: String
-    var usedWebSearch: Bool = false
-}
-
-
 /// View for displaying a single chat message
 struct MessageView: View {
     let message: ChatMessage

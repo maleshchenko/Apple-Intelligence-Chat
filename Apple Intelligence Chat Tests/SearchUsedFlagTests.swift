@@ -5,22 +5,23 @@ import Testing
 struct SearchUsedFlagTests {
 
     @Test("Starts as false")
-    func defaultsFalse() {
-        #expect(SearchUsedFlag().value == false)
+    func defaultsFalse() async {
+        let flag = SearchUsedFlag()
+        #expect(await flag.value == false)
     }
 
-    @Test("Can be set to true")
-    func canSetTrue() {
+    @Test("set() makes value true")
+    func canSetTrue() async {
         let flag = SearchUsedFlag()
-        flag.value = true
-        #expect(flag.value == true)
+        await flag.set()
+        #expect(await flag.value == true)
     }
 
-    @Test("Can be reset to false")
-    func canReset() {
+    @Test("reset() makes value false after set")
+    func canReset() async {
         let flag = SearchUsedFlag()
-        flag.value = true
-        flag.value = false
-        #expect(flag.value == false)
+        await flag.set()
+        await flag.reset()
+        #expect(await flag.value == false)
     }
 }

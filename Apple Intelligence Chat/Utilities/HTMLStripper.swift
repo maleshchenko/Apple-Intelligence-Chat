@@ -14,7 +14,7 @@ enum HTMLStripper {
 
         while let start = text.range(of: "<"),
               let end = text.range(of: ">", range: start.lowerBound..<text.endIndex) {
-            text.removeSubrange(start.lowerBound...end.lowerBound)
+            text.removeSubrange(start.lowerBound...end.upperBound)
         }
 
         return text
