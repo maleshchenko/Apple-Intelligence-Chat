@@ -23,7 +23,7 @@ struct ContentView: View {
                 messageList
                 VStack {
                     Spacer()
-                    inputField.padding(20)
+                    inputField.padding(UI.Padding.inputField)
                 }
             }
             .navigationTitle("Apple Intelligence Chat")
@@ -53,8 +53,8 @@ struct ContentView: View {
                             .id(message.id)
                     }
                 }
-                .padding()
-                .padding(.bottom, 90)
+                .padding(UI.Padding.content)
+                .padding(.bottom, UI.Padding.scrollBottom)
             }
             .onChange(of: viewModel.messages.last?.text) {
                 if let last = viewModel.messages.last {
@@ -68,24 +68,24 @@ struct ContentView: View {
         ZStack {
             TextField("Ask anything", text: $inputText, axis: .vertical)
                 .textFieldStyle(.plain)
-                .lineLimit(1...5)
-                .frame(minHeight: 22)
+                .lineLimit(1...UI.Input.lineLimit)
+                .frame(minHeight: UI.Size.inputFieldMinHeight)
                 .disabled(viewModel.isResponding)
                 .onSubmit { submit() }
-                .padding(16)
+                .padding(UI.Padding.inputFieldInner)
 
             HStack {
                 Spacer()
                 Button(action: submit) {
                     Image(systemName: viewModel.isResponding ? "stop.circle.fill" : "arrow.up.circle.fill")
-                        .font(.system(size: 30, weight: .bold))
-                        .foregroundStyle(isSendDisabled ? Color.gray.opacity(0.6) : .primary)
+                        .font(.system(size: UI.Size.sendButtonIcon, weight: .bold))
+                        .foregroundStyle(isSendDisabled ? Color.gray.opacity(UI.Opacity.sendButtonDisabled) : .primary)
                 }
                 .disabled(isSendDisabled)
-                .animation(.easeInOut(duration: 0.2), value: viewModel.isResponding)
-                .animation(.easeInOut(duration: 0.2), value: isSendDisabled)
+                .animation(.easeInOut(duration: UI.Animation.sendButtonTransition), value: viewModel.isResponding)
+                .animation(.easeInOut(duration: UI.Animation.sendButtonTransition), value: isSendDisabled)
                 .glassEffect(.regular.interactive())
-                .padding(.trailing, 8)
+                .padding(.trailing, UI.Padding.sendButtonTrailing)
             }
         }
         .glassEffect(.regular.interactive())

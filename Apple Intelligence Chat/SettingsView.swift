@@ -32,12 +32,12 @@ struct SettingsView: View {
                         Text("Temperature: \(temperature, specifier: "%.2f")")
                         Slider(value: $temperature, in: 0.0...2.0, step: 0.1)
                     }
-                    .padding(.vertical, 4)
+                    .padding(.vertical, UI.Padding.settingsSliderRow)
                 }
                 
                 Section("System Instructions") {
                     TextEditor(text: $systemInstructions)
-                        .frame(minHeight: 100)
+                        .frame(minHeight: UI.Size.settingsInstructionsMinHeight)
                         .font(.body)
                 }
             }

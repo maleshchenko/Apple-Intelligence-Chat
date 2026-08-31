@@ -40,16 +40,16 @@ struct MessageView: View {
             } else if message.role == .user {
                 Spacer()
                 Text(message.text)
-                    .padding(12)
+                    .padding(UI.Padding.userBubble)
                     .foregroundColor(.white)
                     .background(.blue)
-                    .clipShape(.rect(cornerRadius: 18))
-                    .glassEffect(in: .rect(cornerRadius: 18))
+                    .clipShape(.rect(cornerRadius: UI.CornerRadius.userBubble))
+                    .glassEffect(in: .rect(cornerRadius: UI.CornerRadius.userBubble))
             } else {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: UI.Spacing.assistantStack) {
                     if message.text.isEmpty && isResponding {
                         PulsingDotView()
-                            .frame(width: 60, height: 25)
+                            .frame(width: UI.Size.pulsingIndicatorWidth, height: UI.Size.pulsingIndicatorHeight)
                     } else {
                         Text(message.text)
                             .textSelection(.enabled)
@@ -58,16 +58,16 @@ struct MessageView: View {
                         Label("Web search", systemImage: "globe")
                             .font(.caption2)
                             .foregroundStyle(.secondary)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
-                            .background(.secondary.opacity(0.12), in: Capsule())
+                            .padding(.horizontal, UI.Padding.badgeHorizontal)
+                            .padding(.vertical, UI.Padding.badgeVertical)
+                            .background(.secondary.opacity(UI.Opacity.badgeBackground), in: Capsule())
                     }
                 }
-                .padding(.vertical, 8)
+                .padding(.vertical, UI.Padding.assistantContent)
                 Spacer()
             }
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, UI.Padding.messageRow)
     }
 }
 
@@ -76,15 +76,17 @@ struct PulsingDotView: View {
     @State private var isAnimating = false
     
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: UI.Spacing.pulsingDots) {
             ForEach(0..<3) { index in
                 Circle()
-                    .frame(width: 8, height: 8)
-                    .foregroundStyle(.primary.opacity(0.5))
+                    .frame(width: UI.Size.pulsingDot, height: UI.Size.pulsingDot)
+                    .foregroundStyle(.primary.opacity(UI.Opacity.pulsingDotForeground))
                     .scaleEffect(isAnimating ? 1.0 : 0.5)
-                    .opacity(isAnimating ? 1.0 : 0.3)
+                    .opacity(isAnimating ? UI.Opacity.pulsingDotActive : UI.Opacity.pulsingDotIdle)
                     .animation(
-                        .easeInOut(duration: 0.6).repeatForever().delay(Double(index) * 0.2),
+                        .easeInOut(duration: UI.Animation.pulsingDotCycle)
+                            .repeatForever()
+                            .delay(Double(index) * UI.Animation.pulsingDotDelay),
                         value: isAnimating
                     )
             }
