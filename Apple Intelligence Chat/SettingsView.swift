@@ -28,17 +28,26 @@ struct SettingsView: View {
             Form {
                 Section("Generation") {
                     Toggle("Stream Responses", isOn: $useStreaming)
+                        .accessibilityIdentifier(Accessibility.ID.streamingToggle)
+                        .accessibilityHint(Accessibility.Hint.streamingToggle)
                     VStack(alignment: .leading) {
                         Text("Temperature: \(temperature, specifier: "%.2f")")
                         Slider(value: $temperature, in: 0.0...2.0, step: 0.1)
+                            .accessibilityIdentifier(Accessibility.ID.temperatureSlider)
+                            .accessibilityLabel("Temperature")
+                            .accessibilityValue(String(format: "%.2f", temperature))
+                            .accessibilityHint(Accessibility.Hint.temperatureSlider)
                     }
                     .padding(.vertical, UI.Padding.settingsSliderRow)
                 }
-                
+
                 Section("System Instructions") {
                     TextEditor(text: $systemInstructions)
                         .frame(minHeight: UI.Size.settingsInstructionsMinHeight)
                         .font(.body)
+                        .accessibilityIdentifier(Accessibility.ID.instructionsEditor)
+                        .accessibilityLabel("System instructions")
+                        .accessibilityHint(Accessibility.Hint.instructionsEditor)
                 }
             }
             .navigationTitle("Settings")
@@ -48,6 +57,8 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
+                        .accessibilityIdentifier(Accessibility.ID.doneButton)
+                        .accessibilityHint(Accessibility.Hint.doneButton)
                 }
             }
         }

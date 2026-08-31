@@ -56,6 +56,7 @@ struct ContentView: View {
                 .padding(UI.Padding.content)
                 .padding(.bottom, UI.Padding.scrollBottom)
             }
+            .accessibilityIdentifier(Accessibility.ID.messageList)
             .onChange(of: viewModel.messages.last?.text) {
                 if let last = viewModel.messages.last {
                     withAnimation { proxy.scrollTo(last.id, anchor: .bottom) }
@@ -73,6 +74,8 @@ struct ContentView: View {
                 .disabled(viewModel.isResponding)
                 .onSubmit { submit() }
                 .padding(UI.Padding.inputFieldInner)
+                .accessibilityIdentifier(Accessibility.ID.inputField)
+                .accessibilityHint(Accessibility.Hint.inputField)
 
             HStack {
                 Spacer()
@@ -86,6 +89,9 @@ struct ContentView: View {
                 .animation(.easeInOut(duration: UI.Animation.sendButtonTransition), value: isSendDisabled)
                 .glassEffect(.regular.interactive())
                 .padding(.trailing, UI.Padding.sendButtonTrailing)
+                .accessibilityIdentifier(Accessibility.ID.sendButton)
+                .accessibilityLabel(viewModel.isResponding ? Accessibility.Label.stopGenerating : Accessibility.Label.sendMessage)
+                .accessibilityHint(viewModel.isResponding ? Accessibility.Hint.stopButton : Accessibility.Hint.sendButton)
             }
         }
         .glassEffect(.regular.interactive())
@@ -102,22 +108,30 @@ struct ContentView: View {
             Button(action: viewModel.resetConversation) {
                 Label("New Chat", systemImage: "square.and.pencil")
             }
+            .accessibilityIdentifier(Accessibility.ID.newChatButton)
+            .accessibilityHint(Accessibility.Hint.newChatButton)
         }
         ToolbarItem(placement: .navigationBarTrailing) {
             Button { showSettings = true } label: {
                 Label("Settings", systemImage: "gearshape")
             }
+            .accessibilityIdentifier(Accessibility.ID.settingsButton)
+            .accessibilityHint(Accessibility.Hint.settingsButton)
         }
 #else
         ToolbarItem {
             Button(action: viewModel.resetConversation) {
                 Label("New Chat", systemImage: "square.and.pencil")
             }
+            .accessibilityIdentifier(Accessibility.ID.newChatButton)
+            .accessibilityHint(Accessibility.Hint.newChatButton)
         }
         ToolbarItem {
             Button { showSettings = true } label: {
                 Label("Settings", systemImage: "gearshape")
             }
+            .accessibilityIdentifier(Accessibility.ID.settingsButton)
+            .accessibilityHint(Accessibility.Hint.settingsButton)
         }
 #endif
     }

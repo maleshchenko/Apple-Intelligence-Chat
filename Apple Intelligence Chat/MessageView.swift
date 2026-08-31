@@ -45,14 +45,18 @@ struct MessageView: View {
                     .background(.blue)
                     .clipShape(.rect(cornerRadius: UI.CornerRadius.userBubble))
                     .glassEffect(in: .rect(cornerRadius: UI.CornerRadius.userBubble))
+                    .accessibilityLabel("\(Accessibility.Label.userMessage): \(message.text)")
             } else {
                 VStack(alignment: .leading, spacing: UI.Spacing.assistantStack) {
                     if message.text.isEmpty && isResponding {
                         PulsingDotView()
                             .frame(width: UI.Size.pulsingIndicatorWidth, height: UI.Size.pulsingIndicatorHeight)
+                            .accessibilityIdentifier(Accessibility.ID.generatingIndicator)
+                            .accessibilityLabel(Accessibility.Label.generatingResponse)
                     } else {
                         Text(message.text)
                             .textSelection(.enabled)
+                            .accessibilityLabel("\(Accessibility.Label.assistantMessage): \(message.text)")
                     }
                     if message.usedWebSearch {
                         Label("Web search", systemImage: "globe")
@@ -61,6 +65,9 @@ struct MessageView: View {
                             .padding(.horizontal, UI.Padding.badgeHorizontal)
                             .padding(.vertical, UI.Padding.badgeVertical)
                             .background(.secondary.opacity(UI.Opacity.badgeBackground), in: Capsule())
+                            .accessibilityIdentifier(Accessibility.ID.webSearchBadge)
+                            .accessibilityLabel(Accessibility.Label.webSearchBadge)
+                            .accessibilityAddTraits(.isStaticText)
                     }
                 }
                 .padding(.vertical, UI.Padding.assistantContent)
@@ -68,6 +75,7 @@ struct MessageView: View {
             }
         }
         .padding(.vertical, UI.Padding.messageRow)
+        .accessibilityIdentifier(Accessibility.ID.messageRow)
     }
 }
 
@@ -89,6 +97,7 @@ struct PulsingDotView: View {
                             .delay(Double(index) * UI.Animation.pulsingDotDelay),
                         value: isAnimating
                     )
+                    .accessibilityHidden(true)
             }
         }
         .onAppear { isAnimating = true }
