@@ -29,13 +29,13 @@ final class ChatViewModel {
 
     // MARK: - Settings (read at send time so changes take effect immediately)
 
-    var useStreaming: Bool {
+    private var useStreaming: Bool {
         get { UserDefaults.standard.object(forKey: "useStreaming") as? Bool ?? AppSettings.useStreaming }
     }
-    var temperature: Double {
+    private var temperature: Double {
         get { UserDefaults.standard.object(forKey: "temperature") as? Double ?? AppSettings.temperature }
     }
-    var systemInstructions: String {
+    private var systemInstructions: String {
         get { UserDefaults.standard.string(forKey: "systemInstructions") ?? AppSettings.systemInstructions }
     }
 

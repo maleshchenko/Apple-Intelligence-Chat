@@ -80,7 +80,7 @@ struct MessageView: View {
 }
 
 /// Animated loading indicator shown while AI is generating a response
-struct PulsingDotView: View {
+private struct PulsingDotView: View {
     @State private var isAnimating = false
     
     var body: some View {
