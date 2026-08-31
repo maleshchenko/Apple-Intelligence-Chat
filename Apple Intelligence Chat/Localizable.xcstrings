@@ -1,0 +1,94 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Apple Intelligence Chat" : {
+      "comment" : "Main navigation title"
+    },
+    "Ask anything" : {
+      "comment" : "Input field placeholder"
+    },
+    "New Chat" : {
+      "comment" : "Toolbar button: starts a fresh conversation"
+    },
+    "Settings" : {
+      "comment" : "Toolbar button: opens the settings sheet"
+    },
+    "Error" : {
+      "comment" : "Alert title shown when the model or network fails"
+    },
+    "OK" : {
+      "comment" : "Alert dismiss button"
+    },
+    "Done" : {
+      "comment" : "Settings sheet dismiss button"
+    },
+    "Web search" : {
+      "comment" : "Badge shown below an assistant response that used live web search"
+    },
+    "Generation" : {
+      "comment" : "Settings section header: streaming and temperature controls"
+    },
+    "Stream Responses" : {
+      "comment" : "Settings toggle: enables token-by-token streaming"
+    },
+    "System Instructions" : {
+      "comment" : "Settings section header: editable system prompt"
+    },
+    "error.session.unavailable" : {
+      "comment" : "Error shown when the language model reports it is unavailable",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The language model is not available. Reason: %@"
+          }
+        }
+      }
+    },
+    "error.session.creation" : {
+      "comment" : "Error shown when a new LanguageModelSession cannot be created",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session could not be created."
+          }
+        }
+      }
+    },
+    "error.generic" : {
+      "comment" : "Generic fallback error alert message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred: %@"
+          }
+        }
+      }
+    },
+    "system.context.limit" : {
+      "comment" : "Inline system message shown in the chat when the context window is exceeded",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Context limit reached: conversation history was cleared."
+          }
+        }
+      }
+    },
+    "system.guardrail" : {
+      "comment" : "Inline system message shown when the model refuses to respond after retries",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The model declined to respond after 3 attempts. Try rephrasing your question."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -46,7 +46,8 @@ final class ChatViewModel {
             stopStreaming()
         } else {
             guard model.isAvailable else {
-                showError("The language model is not available. Reason: \(availabilityDescription(for: model.availability))")
+                let reason = availabilityDescription(for: model.availability)
+                showError(String(format: String(localized: "error.session.unavailable"), reason))
                 return
             }
             sendMessage(prompt: prompt)
@@ -83,31 +84,31 @@ final class ChatViewModel {
             do {
                 if session == nil { session = makeSession() }
                 guard let currentSession = session else {
-                    showError("Session could not be created.")
+                    showError(String(localized: "error.session.creation"))
                     isResponding = false
                     return
                 }
                 try await generate(prompt: prompt, session: currentSession)
             } catch LanguageModelSession.GenerationError.exceededContextWindowSize {
                 if messages.last?.role == .assistant { messages.removeLast() }
-                messages.append(ChatMessage(role: .system, text: "Context limit reached — conversation history was cleared."))
+                messages.append(ChatMessage(role: .system, text: String(localized: "system.context.limit")))
                 session = makeSession()
                 messages.append(ChatMessage(role: .assistant, text: ""))
                 if let freshSession = session {
                     do { try await generate(prompt: prompt, session: freshSession) }
-                    catch { showError("An error occurred: \(error.localizedDescription)") }
+                    catch { showError(String(format: String(localized: "error.generic"), error.localizedDescription)) }
                 }
             } catch let e as LanguageModelSession.GenerationError {
                 if case .guardrailViolation = e {
                     if messages.last?.role == .assistant { messages.removeLast() }
-                    messages.append(ChatMessage(role: .system, text: "The model declined to respond after 3 attempts. Try rephrasing your question."))
+                    messages.append(ChatMessage(role: .system, text: String(localized: "system.guardrail")))
                 } else {
-                    showError("An error occurred: \(e.localizedDescription)")
+                    showError(String(format: String(localized: "error.generic"), e.localizedDescription))
                 }
             } catch is CancellationError {
                 // User cancelled — no error shown
             } catch {
-                showError("An error occurred: \(error.localizedDescription)")
+                showError(String(format: String(localized: "error.generic"), error.localizedDescription))
             }
             isResponding = false
             streamingTask = nil
