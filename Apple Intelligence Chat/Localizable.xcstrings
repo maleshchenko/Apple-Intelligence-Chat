@@ -7,40 +7,19 @@
     "Ask anything" : {
       "comment" : "Input field placeholder"
     },
-    "New Chat" : {
-      "comment" : "Toolbar button: starts a fresh conversation"
-    },
-    "Settings" : {
-      "comment" : "Toolbar button: opens the settings sheet"
+    "Done" : {
+      "comment" : "Settings sheet dismiss button"
     },
     "Error" : {
       "comment" : "Alert title shown when the model or network fails"
     },
-    "OK" : {
-      "comment" : "Alert dismiss button"
-    },
-    "Done" : {
-      "comment" : "Settings sheet dismiss button"
-    },
-    "Web search" : {
-      "comment" : "Badge shown below an assistant response that used live web search"
-    },
-    "Generation" : {
-      "comment" : "Settings section header: streaming and temperature controls"
-    },
-    "Stream Responses" : {
-      "comment" : "Settings toggle: enables token-by-token streaming"
-    },
-    "System Instructions" : {
-      "comment" : "Settings section header: editable system prompt"
-    },
-    "error.session.unavailable" : {
-      "comment" : "Error shown when the language model reports it is unavailable",
+    "error.generic" : {
+      "comment" : "Generic fallback error alert message",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The language model is not available. Reason: %@"
+            "value" : "An error occurred: %@"
           }
         }
       }
@@ -56,16 +35,34 @@
         }
       }
     },
-    "error.generic" : {
-      "comment" : "Generic fallback error alert message",
+    "error.session.unavailable" : {
+      "comment" : "Error shown when the language model reports it is unavailable",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "An error occurred: %@"
+            "value" : "The language model is not available. Reason: %@"
           }
         }
       }
+    },
+    "Generation" : {
+      "comment" : "Settings section header: streaming and temperature controls"
+    },
+    "New Chat" : {
+      "comment" : "Toolbar button: starts a fresh conversation"
+    },
+    "OK" : {
+      "comment" : "Alert dismiss button"
+    },
+    "Settings" : {
+      "comment" : "Toolbar button: opens the settings sheet"
+    },
+    "Stream Responses" : {
+      "comment" : "Settings toggle: enables token-by-token streaming"
+    },
+    "System Instructions" : {
+      "comment" : "Settings section header: editable system prompt"
     },
     "system.context.limit" : {
       "comment" : "Inline system message shown in the chat when the context window is exceeded",
@@ -88,6 +85,12 @@
           }
         }
       }
+    },
+    "Temperature: %.2f" : {
+
+    },
+    "Web search" : {
+      "comment" : "Badge shown below an assistant response that used live web search"
     }
   },
   "version" : "1.0"
